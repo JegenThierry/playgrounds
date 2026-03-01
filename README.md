@@ -19,6 +19,20 @@ Every project in this repository is equipped with a `docker-compose.yaml` file f
 ### Running a Playground
 You may need to remove the `networks` section in the `docker-compose.yaml` file and add a `ports` section if you are not using a docker network setup
 
+```yaml
+services:
+  valentines-site:
+    container_name: valentines_site
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "1236:80"
+    volumes:
+      - ./:/usr/share/nginx/html
+    restart: unless-stopped
+```
+
 Navigate to the specific project folder:
 
 ```bash
