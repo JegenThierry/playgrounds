@@ -14,9 +14,11 @@ A collection of small webpages. This repository contains several small pagaes ea
 
 ## Getting Started
 
-Every project in this repository is equipped with a `docker-compose.yml` file for quick deployment.
+Every project in this repository is equipped with a `docker-compose.yaml` file for quick deployment.
 
 ### Running a Playground
+You may need to remove the `networks` section in the `docker-compose.yaml` file and add a `ports` section if you are not using a docker network setup
+
 Navigate to the specific project folder:
 
 ```bash
