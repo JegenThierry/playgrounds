@@ -1,0 +1,15 @@
+services:
+  flower-site:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flower_site
+    volumes:
+      - ./:/usr/share/nginx/html
+    restart: unless-stopped
+    networks:
+      - nginx-network
+
+networks:
+  nginx-network:
+    external: true

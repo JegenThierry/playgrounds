@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="reset.css" />
+        <link rel="stylesheet" href="index.css" />
+        <link
+            rel="shortcut icon"
+            href="./assets/favicon.ico"
+            type="image/x-icon"
+        />
+        <script src="index.js"></script>
+        <title>Christmas</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Merry Christmas!</h1>
+            <p class="subtitle">Pick a gift to unwrap your surprise</p>
+        </header>
+
+        <div class="gifts-container">
+            <div class="gift-box" onclick="openGift('messages')">
+                <span class="click-hint">Open Me</span>
+            </div>
+
+            <div class="gift-box" onclick="openGift('vouchers')">
+                <span class="click-hint">Open Me</span>
+            </div>
+
+            <div class="gift-box" onclick="openGift('picture')">
+                <span class="click-hint">Open Me</span>
+            </div>
+        </div>
+
+        <div id="modal" class="modal-overlay" onclick="closeModal(event)">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <button class="close-btn" onclick="closeModal()">×</button>
+                <div id="modal-body"></div>
+            </div>
+        </div>
+
+        <template id="modal-messages-template">
+            <h2>Sweet Nothings 💌</h2>
+            <div class="message-box" id="msg-display">
+                You are the best gift I could ask for!
+            </div>
+            <button class="nav-btn" onclick="nextMessage()">
+                Next Message
+            </button>
+        </template>
+
+        <template id="modal-vouchers-template">
+            <h2>Your Christmas Vouchers 🎁</h2>
+            <p style="margin-bottom: 1rem">Take a screenshot to redeem!</p>
+            <div class="voucher-grid">
+                <div class="voucher">
+                    <h3>A Day With Me</h3>
+                    <p>Redeemable for one day of exclusive time with me.</p>
+                </div>
+
+                <div class="voucher">
+                    <h3>Any Favour</h3>
+                    <p>No matter what, no questions asked.</p>
+                </div>
+
+                <div class="voucher">
+                    <h3>A 'Shut Up' Card</h3>
+                    <p>Use this to silence me instantly.</p>
+                </div>
+            </div>
+        </template>
+
+        <template id="modal-image-template">
+            <h2>Look at this! 📸</h2>
+            <img
+                src="./assets/<your-pic>"
+                alt="<Your-Pic-Alt>"
+                class="gift-img"
+            />
+        </template>
+    </body>
+</html>

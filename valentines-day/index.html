@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <script src="index.js"></script>
+        <link rel="stylesheet" href="reset.css" />
+        <link rel="stylesheet" href="index.css" />
+        <link
+            rel="shortcut icon"
+            href="./assets/favicon.ico"
+            type="image/x-icon"
+        />
+        <title>Valentines</title>
+    </head>
+
+    <body
+        class="bg-rose-50 text-slate-800 overflow-hidden relative selection:bg-rose-200 font-sans"
+    >
+        <div
+            id="heart-container"
+            class="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden"
+        ></div>
+
+        <main
+            class="relative z-10 flex flex-col items-center justify-center min-h-[100dvh] p-6"
+        >
+            <div
+                class="w-full max-w-sm bg-white/80 backdrop-blur-md border border-white/50 shadow-xl rounded-3xl p-8 text-center transition-all duration-300 hover:shadow-2xl hover:bg-white/90"
+            >
+                <div class="text-6xl mb-6 animate-bounce">❤️</div>
+
+                <h1 class="text-3xl font-bold text-rose-600 mb-6 tracking-wide">
+                    For You
+                </h1>
+
+                <div
+                    class="min-h-[100px] flex items-center justify-center mb-8"
+                >
+                    <p
+                        id="message-text"
+                        class="text-xl font-medium leading-relaxed text-slate-700 fade-in"
+                    >
+                        Happy Valentine's Day!
+                    </p>
+                </div>
+
+                <button
+                    onclick="nextMessage()"
+                    class="group relative inline-flex items-center justify-center px-8 py-3 w-full font-semibold text-white transition-all duration-200 bg-rose-500 rounded-full hover:bg-rose-600 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-rose-300 focus:ring-offset-2 cursor-pointer"
+                >
+                    <span>New Message</span>
+                    <span
+                        class="ml-2 group-hover:rotate-12 transition-transform"
+                    >
+                        💌
+                    </span>
+                </button>
+            </div>
+
+            <footer
+                class="absolute bottom-4 text-xs text-rose-400 font-medium opacity-80"
+            >
+                Made with love
+            </footer>
+        </main>
+    </body>
+</html>
