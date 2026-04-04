@@ -10,6 +10,7 @@ A collection of small webpages. This repository contains several small pagaes ea
 | Flower 🌸 | A flower for your loved ones. |
 | Valentine's Day ❤️ | A romantic way to confess your love. |
 | Birthday 🎂 | A personalized Birthday site. |
+| Easter 🐰 | Easter website wishing you a happy easter. |
 
 
 ## Getting Started
