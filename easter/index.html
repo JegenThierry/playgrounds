@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Happy Easter! 🐣</title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="content">
+    <div class="page-title">🐰 Easter Egg Hunt 🌸</div>
+
+    <div class="egg-wrap wiggling" id="egg">
+
+      <div class="shell-half shell-top">
+        <svg class="shell-svg" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100,10 C58,10,14,58,14,120 C14,182,50,230,100,230 C150,230,186,182,186,120 C186,58,142,10,100,10Z"
+            fill="#b2dfdb" />
+          <path d="M14,108 C14,114 14,117 14,120 L186,120 C186,117 186,114 186,108Z" fill="#fff59d" />
+          <path d="M17,108 Q38,100 60,108 Q82,116 100,108 Q118,100 140,108 Q162,116 183,108" fill="none"
+            stroke="#80cbc4" stroke-width="2.5" stroke-linecap="round" />
+          <circle cx="55" cy="65" r="5" fill="#fff9c4" opacity="0.9" />
+          <circle cx="145" cy="70" r="4" fill="#fff9c4" opacity="0.9" />
+          <circle cx="78" cy="44" r="3.5" fill="#fff9c4" opacity="0.9" />
+          <circle cx="122" cy="46" r="4" fill="#fff9c4" opacity="0.9" />
+          <circle cx="100" cy="36" r="5" fill="#ffcc80" opacity="0.9" />
+          <circle cx="40" cy="85" r="3.5" fill="#f48fb1" opacity="0.8" />
+          <circle cx="160" cy="88" r="3.5" fill="#f48fb1" opacity="0.8" />
+          <circle cx="42" cy="114" r="5.5" fill="#ef9a9a" />
+          <circle cx="70" cy="117" r="5" fill="#80deea" />
+          <circle cx="100" cy="114" r="6.5" fill="#ce93d8" />
+          <circle cx="130" cy="117" r="5" fill="#a5d6a7" />
+          <circle cx="158" cy="114" r="5.5" fill="#ffb74d" />
+          <path d="M100,10 C58,10,14,58,14,120 C14,182,50,230,100,230 C150,230,186,182,186,120 C186,58,142,10,100,10Z"
+            fill="none" stroke="rgba(160,90,120,0.28)" stroke-width="2.5" />
+        </svg>
+      </div>
+
+      <div class="shell-half shell-bottom">
+        <svg class="shell-svg" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100,10 C58,10,14,58,14,120 C14,182,50,230,100,230 C150,230,186,182,186,120 C186,58,142,10,100,10Z"
+            fill="#f8bbd0" />
+          <path d="M22,158 C28,184 50,222 100,228 C150,222 172,184 178,158Z" fill="#f48fb1" />
+          <path d="M14,108 C14,114 14,117 14,120 L186,120 C186,117 186,114 186,108Z" fill="#fff59d" />
+          <path d="M24,158 Q50,150 75,158 Q100,166 125,158 Q150,150 176,158" fill="none" stroke="#f06292"
+            stroke-width="2.5" stroke-linecap="round" />
+          <path d="M38,188 L52,180 L66,188 L80,180 L94,188 L108,180 L122,188 L136,180 L150,188 L162,182" fill="none"
+            stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="48" cy="142" r="4.5" fill="#f06292" opacity="0.6" />
+          <circle cx="152" cy="142" r="4.5" fill="#f06292" opacity="0.6" />
+          <circle cx="100" cy="145" r="5" fill="#ce93d8" opacity="0.55" />
+          <circle cx="42" cy="114" r="5.5" fill="#ef9a9a" />
+          <circle cx="70" cy="117" r="5" fill="#80deea" />
+          <circle cx="100" cy="114" r="6.5" fill="#ce93d8" />
+          <circle cx="130" cy="117" r="5" fill="#a5d6a7" />
+          <circle cx="158" cy="114" r="5.5" fill="#ffb74d" />
+          <path d="M17,108 Q38,100 60,108 Q82,116 100,108 Q118,100 140,108 Q162,116 183,108" fill="none"
+            stroke="#80cbc4" stroke-width="2.5" stroke-linecap="round" />
+          <path d="M100,10 C58,10,14,58,14,120 C14,182,50,230,100,230 C150,230,186,182,186,120 C186,58,142,10,100,10Z"
+            fill="none" stroke="rgba(160,90,120,0.28)" stroke-width="2.5" />
+        </svg>
+      </div>
+
+      <svg class="crack-svg" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+        <path class="crack-path" id="c1" d="M100,85 L97,97 L101,110" />
+        <path class="crack-path" id="c2" d="M97,97  L86,108 L81,120" />
+        <path class="crack-path" id="c3" d="M101,110 L113,119 L119,133" />
+        <path class="crack-path" id="c4" d="M100,85  L104,72 L99,58" />
+        <path class="crack-path" id="c5" d="M81,120  L73,135 L69,150" />
+        <path class="crack-path" id="c6" d="M119,133 L127,149 L122,165" />
+        <path class="crack-path" id="c7" d="M99,58   L94,47  L100,36" />
+        <path class="crack-path" id="c8" d="M86,108  L76,116 L64,113" />
+        <path class="crack-path" id="c9" d="M69,150  L62,166 L67,181" />
+        <path class="crack-path" id="c10" d="M69,150  L100,158 L122,165" />
+      </svg>
+
+      <div class="chick-wrap">🐣</div>
+    </div>
+
+    <div class="progress" id="progress"></div>
+    <div class="hint" id="hint">Tap the egg! 🥚</div>
+  </div>
+
+  <div id="result">
+    <div class="big-chick">🐣</div>
+    <div class="easter-text">Happy Easter!</div>
+    <div class="easter-sub">Wishing you joy, love &amp; chocolate 🍫</div>
+    <button class="replay-btn" onclick="reset()">Crack another egg! 🥚</button>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+
+</html>
