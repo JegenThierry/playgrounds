@@ -1,0 +1,28 @@
+services:
+  date-ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    container_name: date_ui
+    volumes:
+      - ./ui:/usr/share/nginx/html
+    restart: unless-stopped
+    networks:
+      - nginx-network
+
+  date-api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: date_api
+    volumes:
+      - ./api:/app
+    env_file:
+      - ./api/.env
+    restart: unless-stopped
+    networks:
+      - nginx-network
+
+networks:
+  nginx-network:
+    external: true
