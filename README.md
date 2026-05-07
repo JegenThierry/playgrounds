@@ -13,6 +13,7 @@ A collection of small webpages. This repository contains several small pagaes ea
 | Easter 🐰 | Easter website wishing you a happy easter. |
 | Date ✉ | Invite someone on a date. No guarantees for your success. |
 | Stress Shredder 🌟 | Put your worries into the void. No API ; No Cookies ; No tracking |
+| F*** You 🖕 |  Sometimes people just deserve it! |
 
 
 ## Getting Started
