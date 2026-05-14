@@ -119,3 +119,4 @@ services:
 networks:
   default:
     name: nginx-network
+    external: true
