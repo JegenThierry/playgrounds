@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use(express.static(__dirname));
 
-app.get("/api/send-yes", async (req, res) => {
+app.post("/api/send-yes", async (req, res) => {
   try {
     const toEmail = process.env.TO_EMAIL;
     const fromEmail = process.env.FROM_EMAIL || "Date Request <onboarding@resend.dev>";

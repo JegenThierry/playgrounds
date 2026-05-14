@@ -1,52 +1,66 @@
 # Website Playgrounds
 
-A collection of small webpages. This repository contains several small pagaes each ready to launch with a `docker-compose`  file.
+A collection of small webpages. All sites are orchestrated from a single root `docker-compose.yml`.
 
 ## The Collection
 
-| Project | Description |
-| ----------- | ----------- |
-| Christmas 🎄 | A small collection of gifts for family. |
-| Flower 🌸 | A flower for your loved ones. |
-| Valentine's Day ❤️ | A romantic way to confess your love. |
-| Birthday 🎂 | A personalized Birthday site. |
-| Easter 🐰 | Easter website wishing you a happy easter. |
-| Date ✉ | Invite someone on a date. No guarantees for your success. |
-| Stress Shredder 🌟 | Put your worries into the void. No API ; No Cookies ; No tracking |
-| F*** You 🖕 |  Sometimes people just deserve it! |
-
+| Project            | Default Port | Description                                                |
+| ------------------ | ------------ | ---------------------------------------------------------- |
+| Christmas 🎄       | 1230         | A small collection of gifts for family.                    |
+| Birthday 🎂        | 1231         | A personalized Birthday site.                              |
+| Easter 🐰          | 1232         | Easter website wishing you a happy easter.                 |
+| Valentine's Day ❤️ | 1233         | A romantic way to confess your love.                       |
+| Flower 🌸          | 1234         | A flower for your loved ones.                              |
+| Stress Shredder 🌟 | 1235         | Put your worries into the void. No API, no cookies.        |
+| F\*\*\* You 🖕     | 1236         | Sometimes people just deserve it!                          |
+| Date ✉             | 1237         | Invite someone on a date — sends an email on "Yes".        |
 
 ## Getting Started
 
-Every project in this repository is equipped with a `docker-compose.yaml` file for quick deployment.
-
-### Running a Playground
-You may need to remove the `networks` section in the `docker-compose.yaml` file and add a `ports` section if you are not using a docker network setup
-
-```yaml
-services:
-  valentines-site:
-    container_name: valentines_site
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "1236:80"
-    volumes:
-      - ./:/usr/share/nginx/html
-    restart: unless-stopped
-```
-
-Navigate to the specific project folder:
+### 1. Configure environment
 
 ```bash
-cd christmas
+cp .env.example .env
 ```
-Launch the container:
+
+The `date-api` service requires `RESEND_API_KEY` and `TO_EMAIL` — compose refuses to start without them. Every other site runs without any configuration. Ports can be overridden in `.env` if a default collides with something local.
+
+### 2. Run
+
+Start everything:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
-View the site by opening your browser to `http://localhost:[PORT]`
 
-Check the specific docker-compose.yml file in each folder to verify the assigned port.
+Or just one site:
+
+```bash
+docker compose up -d christmas
+```
+
+The static sites bind-mount their directory into nginx, so edits to `index.html` / `.css` / `.js` are visible on browser reload — no rebuild needed. Visit `http://localhost:<port>`.
+
+### 3. Stop
+
+```bash
+docker compose down
+```
+
+## The `date` service
+
+`date-ui` (nginx) reverse-proxies `/api/*` to `date-api` (Node/Express + Resend) via `date/nginx.conf`. The UI container waits for the API healthcheck before starting. Only the UI is published on a host port; the API is reachable only over the internal docker network.
+
+## Reverse-proxy integration
+
+Compose creates a docker network named `nginx-network`. A separate reverse-proxy stack (Traefik, Caddy, nginx-proxy, …) declaring the same network as `external: true` can route hostnames to these containers without going through the published host ports.
+
+## Development
+
+For iterating on the `date-api` outside Docker:
+
+```bash
+cd date/api
+npm install
+npm run dev    # node --watch
+```
