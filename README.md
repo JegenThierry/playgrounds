@@ -14,6 +14,7 @@ A collection of small webpages. All sites are orchestrated from a single root `d
 | Stress Shredder 🌟 | 1235         | Put your worries into the void. No API, no cookies.        |
 | F\*\*\* You 🖕     | 1236         | Sometimes people just deserve it!                          |
 | Date ✉            | 1237         | Invite someone on a date - sends an email on "Yes".        |
+| Sunflower 🌻       | 1238         | A little sunshine for someone who could use it.            |
 
 ## Getting Started
 

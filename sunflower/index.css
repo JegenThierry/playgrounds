@@ -1,0 +1,380 @@
+:root {
+  --petal-color: #f7c331;
+  --petal-dark: #d98e1f;
+  --petal-light: #fde68a;
+  --center-color: #5b3a1e;
+  --center-dark: #3a230f;
+  --center-mid: #7a4a25;
+  --stem-color: #6d8c32;
+  --stem-dark: #4a631e;
+  --sun-color: #fff4b8;
+  --sun-glow: rgba(255, 230, 120, 0.6);
+}
+
+html {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes bloom-pulse {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.03);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateX(-50%) scale(1.1);
+  }
+}
+
+@keyframes sun-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 60px 20px var(--sun-glow),
+      0 0 120px 40px rgba(255, 220, 100, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 80px 30px var(--sun-glow),
+      0 0 160px 60px rgba(255, 220, 100, 0.4);
+  }
+}
+
+@keyframes ring-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes bee-fly {
+  0% {
+    top: 20%;
+    left: -40px;
+    transform: rotate(-5deg);
+  }
+  25% {
+    top: 10%;
+    left: 30%;
+    transform: rotate(10deg);
+  }
+  50% {
+    top: 40%;
+    left: 60%;
+    transform: rotate(-8deg);
+  }
+  75% {
+    top: 70%;
+    left: 30%;
+    transform: rotate(5deg);
+  }
+  100% {
+    top: 20%;
+    left: -40px;
+    transform: rotate(-5deg);
+  }
+}
+
+/* Sun in the sky */
+.sun {
+  position: absolute;
+  top: 8%;
+  right: 10%;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fffacd 0%, var(--sun-color) 60%, #ffd86b 100%);
+  animation: sun-pulse 4s ease-in-out infinite;
+  z-index: 1;
+}
+
+/* Distant field at the bottom */
+.field {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(120, 160, 50, 0.35) 40%,
+    rgba(80, 120, 30, 0.55) 100%
+  );
+  z-index: 1;
+}
+
+.sunflower-wrapper {
+  position: relative;
+  width: 200px;
+  height: 340px;
+  animation: sway 5s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.flower-glow {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 220px;
+  height: 220px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 240, 150, 0.55) 0%,
+    transparent 70%
+  );
+  filter: blur(15px);
+  z-index: 0;
+  animation: glow-pulse 4s infinite;
+}
+
+/* Stem and leaves */
+.stem {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 230px;
+  background: linear-gradient(to right, var(--stem-dark), var(--stem-color));
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.leaf {
+  position: absolute;
+  background: linear-gradient(45deg, var(--stem-dark), var(--stem-color));
+  border-radius: 0% 100% 0% 100% / 0% 100% 0% 100%;
+  z-index: 2;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.leaf.left {
+  width: 60px;
+  height: 28px;
+  bottom: 120px;
+  left: -55px;
+  transform: rotate(-15deg);
+}
+
+.leaf.right {
+  width: 50px;
+  height: 24px;
+  bottom: 160px;
+  right: -45px;
+  transform: rotate(195deg);
+}
+
+/* Flower head */
+.head {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 180px;
+  z-index: 10;
+  animation: bloom-pulse 4s ease-in-out infinite;
+}
+
+/* Two rings of petals, offset for fullness */
+.petal-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+.petal-ring.back {
+  animation: ring-spin 60s linear infinite;
+}
+
+.petal-ring.front {
+  animation: ring-spin 80s linear infinite reverse;
+}
+
+.petal {
+  position: absolute;
+  width: 28px;
+  height: 80px;
+  background: linear-gradient(
+    to top,
+    var(--petal-dark) 0%,
+    var(--petal-color) 50%,
+    var(--petal-light) 100%
+  );
+  border-radius: 50% 50% 20% 20% / 60% 60% 10% 10%;
+  transform-origin: 50% 100%;
+  box-shadow: inset 0 -8px 12px rgba(0, 0, 0, 0.15),
+    2px 2px 4px rgba(0, 0, 0, 0.1);
+  left: -14px;
+  top: -80px;
+}
+
+/* 12 petals per ring at 30deg increments */
+.petal-ring .petal:nth-child(1) {
+  transform: rotate(0deg);
+}
+.petal-ring .petal:nth-child(2) {
+  transform: rotate(30deg);
+}
+.petal-ring .petal:nth-child(3) {
+  transform: rotate(60deg);
+}
+.petal-ring .petal:nth-child(4) {
+  transform: rotate(90deg);
+}
+.petal-ring .petal:nth-child(5) {
+  transform: rotate(120deg);
+}
+.petal-ring .petal:nth-child(6) {
+  transform: rotate(150deg);
+}
+.petal-ring .petal:nth-child(7) {
+  transform: rotate(180deg);
+}
+.petal-ring .petal:nth-child(8) {
+  transform: rotate(210deg);
+}
+.petal-ring .petal:nth-child(9) {
+  transform: rotate(240deg);
+}
+.petal-ring .petal:nth-child(10) {
+  transform: rotate(270deg);
+}
+.petal-ring .petal:nth-child(11) {
+  transform: rotate(300deg);
+}
+.petal-ring .petal:nth-child(12) {
+  transform: rotate(330deg);
+}
+
+/* Front ring petals: slightly smaller, offset by 15deg, sit on top */
+.petal-ring.front .petal {
+  width: 24px;
+  height: 70px;
+  top: -70px;
+  left: -12px;
+  filter: brightness(1.05);
+}
+.petal-ring.front .petal:nth-child(1) {
+  transform: rotate(15deg);
+}
+.petal-ring.front .petal:nth-child(2) {
+  transform: rotate(45deg);
+}
+.petal-ring.front .petal:nth-child(3) {
+  transform: rotate(75deg);
+}
+.petal-ring.front .petal:nth-child(4) {
+  transform: rotate(105deg);
+}
+.petal-ring.front .petal:nth-child(5) {
+  transform: rotate(135deg);
+}
+.petal-ring.front .petal:nth-child(6) {
+  transform: rotate(165deg);
+}
+.petal-ring.front .petal:nth-child(7) {
+  transform: rotate(195deg);
+}
+.petal-ring.front .petal:nth-child(8) {
+  transform: rotate(225deg);
+}
+.petal-ring.front .petal:nth-child(9) {
+  transform: rotate(255deg);
+}
+.petal-ring.front .petal:nth-child(10) {
+  transform: rotate(285deg);
+}
+.petal-ring.front .petal:nth-child(11) {
+  transform: rotate(315deg);
+}
+.petal-ring.front .petal:nth-child(12) {
+  transform: rotate(345deg);
+}
+
+/* Brown center with seed pattern */
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90px;
+  height: 90px;
+  margin: -45px 0 0 -45px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    var(--center-mid) 0%,
+    var(--center-color) 45%,
+    var(--center-dark) 100%
+  );
+  box-shadow:
+    inset 0 0 18px rgba(0, 0, 0, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.25);
+  z-index: 30;
+  overflow: hidden;
+}
+
+/* Seed texture using repeating radial pattern */
+.seeds {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.35) 1px, transparent 2px),
+    radial-gradient(circle at 25% 30%, rgba(0, 0, 0, 0.3) 1px, transparent 2px),
+    radial-gradient(circle at 70% 25%, rgba(0, 0, 0, 0.3) 1px, transparent 2px),
+    radial-gradient(circle at 80% 60%, rgba(0, 0, 0, 0.3) 1px, transparent 2px),
+    radial-gradient(circle at 20% 70%, rgba(0, 0, 0, 0.3) 1px, transparent 2px),
+    radial-gradient(circle at 55% 80%, rgba(0, 0, 0, 0.3) 1px, transparent 2px),
+    radial-gradient(circle at 40% 20%, rgba(0, 0, 0, 0.3) 1px, transparent 2px),
+    radial-gradient(circle at 65% 50%, rgba(0, 0, 0, 0.3) 1px, transparent 2px),
+    radial-gradient(circle at 35% 55%, rgba(0, 0, 0, 0.3) 1px, transparent 2px);
+  background-size: 12px 12px;
+  opacity: 0.9;
+}
+
+/* A friendly bee buzzing around */
+.bee {
+  position: absolute;
+  width: 18px;
+  height: 12px;
+  border-radius: 50%;
+  background: repeating-linear-gradient(
+    90deg,
+    #2a2a2a 0 3px,
+    #f6d24a 3px 6px
+  );
+  box-shadow:
+    -2px 0 0 1px #2a2a2a,
+    0 -4px 0 -2px rgba(255, 255, 255, 0.85),
+    4px -4px 0 -2px rgba(255, 255, 255, 0.85);
+  animation: bee-fly 9s ease-in-out infinite;
+  z-index: 50;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
+}
