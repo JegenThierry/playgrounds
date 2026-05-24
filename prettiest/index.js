@@ -21,12 +21,21 @@ const letters = [
   ],
   [
     "Just so you know,",
-    "Every star in this little sky was drawn for you. The night kept the prettiest ones out late, hoping you would look up.",
-    "forever, 🌙",
+    "Every little heart floating around was drawn for you. They were practising on smaller hearts before they got to mine.",
+    "forever, 🌸",
   ],
 ];
 
-const SPARKLES = ["✨", "💖", "✦", "♡", "🌟"];
+const HEARTS = ["♡", "♥", "❀", "✿", "🌸", "💗", "💖", "🩷", "✨"];
+const SPARKLES = ["✨", "💖", "✿", "♡", "🌸"];
+const HEART_COLORS = [
+  "#ff7eaa",
+  "#ffa3c2",
+  "#ffc1d4",
+  "#ff95b6",
+  "#d8b9ec",
+  "#f7a3c0",
+];
 
 const rand = (a, b) => a + Math.random() * (b - a);
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
@@ -35,24 +44,27 @@ const isCoarse = window.matchMedia("(pointer: coarse)").matches;
 const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const isNarrow = window.matchMedia("(max-width: 640px)").matches;
 
-const STAR_COUNT = isReduced ? 60 : isNarrow ? 90 : 160;
-const SHOOT_MIN = isCoarse ? 7000 : 5000;
-const SHOOT_MAX = isCoarse ? 14000 : 12000;
+const HEART_COUNT = isReduced ? 0 : isNarrow ? 22 : 38;
+const BURST_MIN = isCoarse ? 6000 : 4500;
+const BURST_MAX = isCoarse ? 12000 : 9000;
 
-function makeStar() {
+function makeHeart() {
   const el = document.createElement("div");
-  const size = rand(0.6, 2.6);
-  el.className =
-    "star" +
-    (Math.random() < 0.06 ? " bright" : "") +
-    (Math.random() < 0.12 ? " pink" : "");
-  el.style.cssText = `
-    width:${size}px;height:${size}px;
-    left:${rand(0, 100)}%;top:${rand(0, 100)}%;
-    opacity:${rand(0.3, 1)};
-    animation-duration:${rand(2.5, 7.5)}s;
-    animation-delay:${rand(0, 5)}s;
-  `;
+  const size = rand(14, 32);
+  const duration = rand(14, 26);
+  const sway = rand(-26, 26);
+  const opacity = rand(0.45, 0.85);
+
+  el.className = "heart";
+  el.textContent = pick(HEARTS);
+  el.style.color = pick(HEART_COLORS);
+  el.style.fontSize = `${size}px`;
+  el.style.left = `${rand(0, 100)}%`;
+  el.style.top = `${rand(0, 100)}%`;
+  el.style.setProperty("--sway", `${sway}px`);
+  el.style.setProperty("--target-opacity", String(opacity));
+  el.style.animationDuration = `${duration}s`;
+  el.style.animationDelay = `${rand(-duration, 0)}s`;
   return el;
 }
 
@@ -65,15 +77,30 @@ function spawn(parent, className, css, lifetimeMs) {
   return el;
 }
 
-function shootingStar(sky) {
-  spawn(sky, "shooting-star", `top:${rand(0, 40)}%;left:${rand(0, 30)}%;`, 2000);
+function ambientBurst(sky) {
+  const rect = sky.getBoundingClientRect();
+  const x = rand(rect.left + 30, rect.right - 30);
+  const y = rand(rect.top + 30, rect.bottom * 0.7);
+  const count = isNarrow ? 4 : 6;
+  for (let i = 0; i < count; i++) {
+    const angle = (i / count) * Math.PI * 2 + rand(-0.3, 0.3);
+    const dist = rand(30, 70);
+    const el = spawn(
+      document.body,
+      "sparkle",
+      `left:${x}px;top:${y}px;` +
+        `--dx:${Math.cos(angle) * dist}px;--dy:${Math.sin(angle) * dist}px;`,
+      1300,
+    );
+    el.textContent = pick(SPARKLES);
+  }
 }
 
 function sparkleBurst(x, y) {
-  const count = isNarrow ? 10 : 14;
+  const count = isNarrow ? 12 : 16;
   for (let i = 0; i < count; i++) {
     const angle = (i / count) * Math.PI * 2 + rand(-0.3, 0.3);
-    const dist = rand(50, isNarrow ? 100 : 130);
+    const dist = rand(60, isNarrow ? 110 : 140);
     const el = spawn(
       document.body,
       "sparkle",
@@ -97,15 +124,15 @@ function init() {
   const letterEl = document.getElementById("letter");
 
   const frag = document.createDocumentFragment();
-  for (let i = 0; i < STAR_COUNT; i++) frag.appendChild(makeStar());
+  for (let i = 0; i < HEART_COUNT; i++) frag.appendChild(makeHeart());
   sky.appendChild(frag);
 
   if (!isReduced) {
-    const loopShoot = () => {
-      shootingStar(sky);
-      setTimeout(loopShoot, rand(SHOOT_MIN, SHOOT_MAX));
+    const loopBurst = () => {
+      ambientBurst(sky);
+      setTimeout(loopBurst, rand(BURST_MIN, BURST_MAX));
     };
-    setTimeout(loopShoot, 1500);
+    setTimeout(loopBurst, 2000);
   }
 
   let current = -1;
