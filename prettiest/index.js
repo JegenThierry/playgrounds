@@ -1,20 +1,47 @@
 const letters = [
-  ["Dearest you,", "You are the prettiest girl in the world. Not just today, every day. Wherever stars shine, they shine a little brighter because of you.", "always, 💌"],
-  ["To the loveliest,", "Somewhere out there, the moon is a little jealous. The sun is a little jealous. The stars are a little jealous. They've all seen you, and now they know.", "yours, ✨"],
-  ["A small confession,", "I wished on a star tonight. The star said it was already taken apparently it had been wishing on you the whole time.", "with love, 🌟"],
-  ["Hello pretty,", "If the world were a gallery, you'd be the painting everyone stops in front of. Twice. And then once more on the way out.", "endlessly, 💗"],
-  ["Just so you know,", "Every constellation in this little sky was drawn for you. The night kept the prettiest stars out late, hoping you'd look up.", "forever, 🌙"],
+  [
+    "Hi you,",
+    "You are the prettiest girl in the whole world. Not just today. Every day. Even on the messy ones. Especially on the quiet ones.",
+    "always, 💌",
+  ],
+  [
+    "To the loveliest,",
+    "The moon is a little jealous tonight. So are the stars. They have all seen you, and now they know they were never the prettiest thing in the sky.",
+    "yours, ✨",
+  ],
+  [
+    "A tiny confession,",
+    "I wished on a star tonight. It blinked back and told me it was already taken. Apparently it had been wishing on you the whole time.",
+    "with love, 🌟",
+  ],
+  [
+    "Hello pretty,",
+    "If the world were a gallery, you would be the painting everyone stops in front of. Twice. And then once more on the way out.",
+    "endlessly, 💗",
+  ],
+  [
+    "Just so you know,",
+    "Every star in this little sky was drawn for you. The night kept the prettiest ones out late, hoping you would look up.",
+    "forever, 🌙",
+  ],
 ];
 
-const STAR_COUNT = 160;
 const SPARKLES = ["✨", "💖", "✦", "♡", "🌟"];
 
 const rand = (a, b) => a + Math.random() * (b - a);
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
+const isCoarse = window.matchMedia("(pointer: coarse)").matches;
+const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isNarrow = window.matchMedia("(max-width: 640px)").matches;
+
+const STAR_COUNT = isReduced ? 60 : isNarrow ? 90 : 160;
+const SHOOT_MIN = isCoarse ? 7000 : 5000;
+const SHOOT_MAX = isCoarse ? 14000 : 12000;
+
 function makeStar() {
   const el = document.createElement("div");
-  const size = rand(0.6, 2.8);
+  const size = rand(0.6, 2.6);
   el.className =
     "star" +
     (Math.random() < 0.06 ? " bright" : "") +
@@ -29,11 +56,11 @@ function makeStar() {
   return el;
 }
 
-function spawn(sky, className, css, lifetimeMs) {
+function spawn(parent, className, css, lifetimeMs) {
   const el = document.createElement("div");
   el.className = className;
   el.style.cssText = css;
-  sky.appendChild(el);
+  parent.appendChild(el);
   setTimeout(() => el.remove(), lifetimeMs);
   return el;
 }
@@ -42,14 +69,18 @@ function shootingStar(sky) {
   spawn(sky, "shooting-star", `top:${rand(0, 40)}%;left:${rand(0, 30)}%;`, 2000);
 }
 
-function sparkleBurst(sky, x, y) {
-  for (let i = 0; i < 14; i++) {
-    const angle = (i / 14) * Math.PI * 2 + rand(-0.3, 0.3);
-    const dist = rand(60, 130);
-    const el = spawn(sky, "sparkle",
+function sparkleBurst(x, y) {
+  const count = isNarrow ? 10 : 14;
+  for (let i = 0; i < count; i++) {
+    const angle = (i / count) * Math.PI * 2 + rand(-0.3, 0.3);
+    const dist = rand(50, isNarrow ? 100 : 130);
+    const el = spawn(
+      document.body,
+      "sparkle",
       `left:${x}px;top:${y}px;` +
-      `--dx:${Math.cos(angle) * dist}px;--dy:${Math.sin(angle) * dist}px;`,
-      1300);
+        `--dx:${Math.cos(angle) * dist}px;--dy:${Math.sin(angle) * dist}px;`,
+      1300,
+    );
     el.textContent = pick(SPARKLES);
   }
 }
@@ -69,11 +100,13 @@ function init() {
   for (let i = 0; i < STAR_COUNT; i++) frag.appendChild(makeStar());
   sky.appendChild(frag);
 
-  const loopShoot = () => {
-    shootingStar(sky);
-    setTimeout(loopShoot, rand(5000, 12000));
-  };
-  setTimeout(loopShoot, 1500);
+  if (!isReduced) {
+    const loopShoot = () => {
+      shootingStar(sky);
+      setTimeout(loopShoot, rand(SHOOT_MIN, SHOOT_MAX));
+    };
+    setTimeout(loopShoot, 1500);
+  }
 
   let current = -1;
   let open = false;
@@ -86,7 +119,7 @@ function init() {
       letterEl.innerHTML = renderLetter(letters[current]);
 
       const r = envelope.getBoundingClientRect();
-      sparkleBurst(sky, r.left + r.width / 2, r.top + r.height / 2);
+      sparkleBurst(r.left + r.width / 2, r.top + r.height / 2);
     }
     open = !open;
     scene.classList.toggle("is-open", open);
