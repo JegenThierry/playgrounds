@@ -1,0 +1,246 @@
+:root {
+  --paper: #fdf6ec;
+  --paper-shade: #ecdcc1;
+  --paper-edge: #c9b48f;
+  --ink: #3a1a22;
+  --wax: #c0394b;
+  --wax-dark: #7d1f2c;
+  --wax-light: #e26a7c;
+  --rose: #fda4af;
+}
+
+html {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ── Moon ────────────────────────────────────────────── */
+.moon {
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 360px; height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%,
+    rgba(255, 240, 220, 0.55) 0%,
+    rgba(255, 220, 200, 0.18) 35%,
+    transparent 70%);
+  filter: blur(20px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Stars ───────────────────────────────────────────── */
+.star {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+  animation: twinkle 4s ease-in-out infinite;
+}
+.star.pink {
+  background: var(--rose);
+  box-shadow: 0 0 6px rgba(253, 164, 175, 0.75);
+}
+.star.bright::before,
+.star.bright::after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  transform: translate(-50%, -50%);
+}
+.star.bright::before { width: 200%; height: 1px; }
+.star.bright::after  { width: 1px; height: 200%; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(1); }
+  50%      { opacity: 1;    transform: scale(1.35); }
+}
+
+/* ── Shooting stars ──────────────────────────────────── */
+.shooting-star {
+  position: absolute;
+  width: 140px; height: 2px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.9) 60%, #fff);
+  border-radius: 999px;
+  opacity: 0;
+  transform: rotate(-18deg);
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
+  animation: shoot 1.6s ease-out forwards;
+}
+@keyframes shoot {
+  0%   { opacity: 0; transform: translate(0, 0)        rotate(-18deg); }
+  10%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(60vw, 30vh)  rotate(-18deg); }
+}
+
+/* ── Sparkles (burst on open) ────────────────────────── */
+.sparkle {
+  position: absolute;
+  font-size: 1.2rem;
+  pointer-events: none;
+  filter: drop-shadow(0 0 6px rgba(253, 164, 175, 0.8));
+  animation: sparkle-fly 1.2s ease-out forwards;
+}
+@keyframes sparkle-fly {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+  20%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.3); }
+}
+
+/* ── Envelope scene ──────────────────────────────────── */
+.envelope-scene {
+  position: relative;
+  width: 280px; height: 220px;
+  perspective: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The letter — hidden behind envelope when closed, pops out above when open */
+.letter {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 320px;
+  max-width: 88vw;
+  padding: 28px 26px 24px;
+  background: linear-gradient(180deg, var(--paper) 0%, #fbeed8 100%);
+  color: var(--ink);
+  border-radius: 6px;
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(201, 180, 143, 0.35);
+  text-align: center;
+  font-family: Georgia, "Times New Roman", serif;
+  transform: translate(-50%, -10%) scale(0.85);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition:
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.6s ease;
+}
+.letter-greeting,
+.letter-sign {
+  font-style: italic;
+  color: var(--wax-dark);
+}
+.letter-greeting { margin-bottom: 12px; }
+.letter-sign    { font-size: 0.95rem; }
+.letter-body {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.envelope-scene.is-open .letter {
+  transform: translate(-50%, -110%) scale(1);
+  opacity: 1;
+  z-index: 5;
+  transition:
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.25s,
+    opacity 0.5s ease 0.25s;
+}
+
+/* The envelope — a button so it's keyboard-focusable */
+.envelope {
+  position: relative;
+  width: 280px; height: 180px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.45));
+  transition: transform 0.3s ease;
+  z-index: 2;
+}
+.envelope:hover  { transform: translateY(-4px); }
+.envelope:active { transform: translateY(-1px); }
+.envelope:focus-visible {
+  outline: 2px solid var(--rose);
+  outline-offset: 6px;
+  border-radius: 8px;
+}
+
+.envelope-body {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--paper) 0%, var(--paper-shade) 100%);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 0 1px var(--paper-edge),
+    inset 0 -6px 14px rgba(0, 0, 0, 0.08);
+}
+/* Classic V-fold seams */
+.envelope-body::before,
+.envelope-body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(135deg,
+    transparent 49.5%,
+    rgba(0, 0, 0, 0.07) 49.5%,
+    rgba(0, 0, 0, 0.07) 50.5%,
+    transparent 50.5%);
+}
+.envelope-body::before { left: -2%; transform: scaleX(-1); }
+.envelope-body::after  { right: -2%; }
+
+/* Top flap — folds open backward when .is-open */
+.envelope-flap {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #fbeed8 0%, var(--paper-shade) 60%, var(--paper-edge) 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 62%);
+  transform-origin: top center;
+  backface-visibility: hidden;
+  transition: transform 0.9s cubic-bezier(0.65, -0.2, 0.35, 1.2);
+  z-index: 3;
+  box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.08);
+}
+.envelope-scene.is-open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+
+/* Wax seal heart — gently pulses to invite a tap */
+.wax-seal {
+  position: absolute;
+  top: 38%; left: 50%;
+  width: 56px; height: 56px;
+  margin: -28px 0 0 -28px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--wax-light), var(--wax) 55%, var(--wax-dark) 100%);
+  color: #fdebef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.45),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.35),
+    inset 0 2px 3px rgba(255, 255, 255, 0.25);
+  z-index: 4;
+  animation: seal-pulse 2.6s ease-in-out infinite;
+  transition: opacity 0.35s ease, transform 0.5s ease;
+}
+@keyframes seal-pulse {
+  0%, 100% { transform: scale(1)    rotate(0deg); }
+  50%      { transform: scale(1.08) rotate(-3deg); }
+}
+.envelope-scene.is-open .wax-seal {
+  opacity: 0;
+  transform: scale(1.3) rotate(10deg);
+  animation: none;
+}
+
+.envelope-scene.has-opened ~ #hint { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .star, .shooting-star, .sparkle, .wax-seal { animation: none; }
+}

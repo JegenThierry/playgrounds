@@ -15,6 +15,7 @@ A collection of small webpages. All sites are orchestrated from a single root `d
 | F\*\*\* You 🖕     | 1236         | Sometimes people just deserve it!                          |
 | Date ✉            | 1237         | Invite someone on a date - sends an email on "Yes".        |
 | Sunflower 🌻       | 1238         | A little sunshine for someone who could use it.            |
+| Prettiest 💌       | 1239         | A starry love letter for the prettiest girl in the world.  |
 
 ## Getting Started
 
