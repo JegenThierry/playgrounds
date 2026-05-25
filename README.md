@@ -16,6 +16,7 @@ A collection of small webpages. All sites are orchestrated from a single root `d
 | Date ✉            | 1237         | Invite someone on a date - sends an email on "Yes".        |
 | Sunflower 🌻       | 1238         | A little sunshine for someone who could use it.            |
 | Prettiest 💌       | 1239         | A starry love letter for the prettiest girl in the world.  |
+| Memory Test 📞     | 1240         | A "phone memory test" — emails you the number she typed.   |
 
 ## Getting Started
 
@@ -25,7 +26,7 @@ A collection of small webpages. All sites are orchestrated from a single root `d
 cp .env.example .env
 ```
 
-The `date-api` service requires `RESEND_API_KEY` and `TO_EMAIL` — compose refuses to start without them. Every other site runs without any configuration. Ports can be overridden in `.env` if a default collides with something local.
+The `date-api` and `memory-test-api` services require `RESEND_API_KEY` and `TO_EMAIL` — compose refuses to start without them. Every other site runs without any configuration. Ports can be overridden in `.env` if a default collides with something local.
 
 ### 2. Run
 
@@ -49,9 +50,11 @@ The static sites bind-mount their directory into nginx, so edits to `index.html`
 docker compose down
 ```
 
-## The `date` service
+## The `date` and `memory-test` services
 
 `date-ui` (nginx) reverse-proxies `/api/*` to `date-api` (Node/Express + Resend) via `date/nginx.conf`. The UI container waits for the API healthcheck before starting. Only the UI is published on a host port; the API is reachable only over the internal docker network.
+
+`memory-test` follows the same pattern: `memory-test-ui` ↔ `memory-test-api` via `memory-test/nginx.conf`, sharing the same `RESEND_API_KEY` / `TO_EMAIL` / `FROM_EMAIL` credentials.
 
 ## Reverse-proxy integration
 
@@ -59,10 +62,10 @@ Compose creates a docker network named `nginx-network`. A separate reverse-proxy
 
 ## Development
 
-For iterating on the `date-api` outside Docker:
+For iterating on either API outside Docker:
 
 ```bash
-cd date/api
+cd date/api          # or: cd memory-test/api
 npm install
-npm run dev    # node --watch
+npm run dev          # node --watch
 ```

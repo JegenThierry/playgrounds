@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <script src="index.js" defer></script>
+    <link rel="stylesheet" href="reset.css?v=1" />
+    <link rel="stylesheet" href="index.css?v=1" />
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon" />
+    <title>The Phone Number Memory Test</title>
+</head>
+
+<body>
+    <div id="sky" class="floaties" aria-hidden="true"></div>
+
+    <main class="stage">
+        <!-- ── Screen 1: the "scientific" test ───────────────────── -->
+        <section id="test" class="screen is-active" aria-labelledby="test-title">
+            <header class="intro">
+                <p class="intro-eyebrow">a neurological self-check</p>
+                <h1 id="test-title" class="intro-title">Do you still know your own phone number?</h1>
+                <p class="intro-sub">
+                    Studies show <strong>73%</strong> of adults can no longer recall their
+                    own phone number from memory.<sup>*</sup> Let's find out where you stand.
+                </p>
+            </header>
+
+            <div class="card">
+                <ol class="rules">
+                    <li><span class="rules-num">1</span>Do <em>not</em> peek at your phone.</li>
+                    <li><span class="rules-num">2</span>Type your number from memory below.</li>
+                    <li><span class="rules-num">3</span>We'll check your answer instantly.</li>
+                </ol>
+
+                <form id="test-form" class="form" novalidate>
+                    <label for="phone" class="form-label">Your phone number</label>
+                    <input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        inputmode="tel"
+                        autocomplete="off"
+                        placeholder="+1 (555) 123‑4567"
+                        class="form-input"
+                        required
+                    />
+                    <p id="phone-error" class="form-error" hidden>
+                        Hmm, that doesn't look like a phone number. Try again ✿
+                    </p>
+
+                    <button id="submit-btn" type="submit" class="form-button">
+                        <span class="form-button-label">Check my memory</span>
+                        <span class="form-button-spinner" aria-hidden="true"></span>
+                    </button>
+                </form>
+
+                <p class="fine-print">
+                    <sup>*</sup> Source: a study I just made up. Your data is processed
+                    with the utmost seriousness. Probably.
+                </p>
+            </div>
+
+            <footer class="footer">a very official memory test ✿</footer>
+        </section>
+
+        <!-- ── Screen 2: the reveal ──────────────────────────────── -->
+        <section id="reveal" class="screen" aria-labelledby="reveal-title" aria-hidden="true">
+            <div class="reveal-card">
+                <div class="reveal-emoji" aria-hidden="true">💌</div>
+                <p class="reveal-eyebrow">test results</p>
+                <h2 id="reveal-title" class="reveal-title">Congratulations!</h2>
+                <p class="reveal-body">
+                    You remembered your phone number perfectly.
+                </p>
+                <p class="reveal-body reveal-twist">
+                    …and now, so do I 😏
+                </p>
+                <p class="reveal-number" id="reveal-number">+1 (555) 123‑4567</p>
+                <p class="reveal-sub">
+                    Saved to my contacts under
+                    <span class="reveal-pill">💕 the one</span>
+                </p>
+
+                <div class="reveal-actions">
+                    <button id="retry-btn" type="button" class="ghost-button">
+                        wait, let me try again
+                    </button>
+                </div>
+
+                <p class="reveal-footer">
+                    (this was a trick. it worked. text me back ✿)
+                </p>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

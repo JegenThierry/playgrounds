@@ -132,6 +132,48 @@ services:
       retries: 3
       start_period: 10s
 
+  memory-test-ui:
+    <<: *nginx-site
+    container_name: playgrounds-memory-test-ui
+    ports:
+      - "${MEMORY_TEST_UI_PORT:-1240}:80"
+    volumes:
+      - ./memory-test/ui:/usr/share/nginx/html:ro
+      - ./memory-test/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      memory-test-api:
+        condition: service_healthy
+
+  memory-test-api:
+    build:
+      context: ./memory-test/api
+    image: playgrounds/memory-test-api:latest
+    container_name: playgrounds-memory-test-api
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      NODE_ENV: production
+      PORT: "3002"
+      RESEND_API_KEY: ${RESEND_API_KEY:?RESEND_API_KEY is required (see .env.example)}
+      TO_EMAIL: ${TO_EMAIL:?TO_EMAIL is required (see .env.example)}
+      FROM_EMAIL: ${FROM_EMAIL:-Memory Test <onboarding@resend.dev>}
+    expose:
+      - "3002"
+    healthcheck:
+      test:
+        - "CMD"
+        - "node"
+        - "-e"
+        - "require('net').createConnection({host:'127.0.0.1',port:3002}).on('connect',function(){this.end();process.exit(0)}).on('error',()=>process.exit(1))"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
 networks:
   default:
     name: nginx-network
