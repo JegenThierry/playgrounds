@@ -78,9 +78,9 @@ services:
     <<: *nginx-site
     container_name: playgrounds-love
     ports:
-      - "${ANNE_PORT:-1241}:80"
+      - "${LOVE_PORT:-1241}:80"
     volumes:
-      - ./anne:/usr/share/nginx/html:ro
+      - ./love:/usr/share/nginx/html:ro
 
   justine:
     <<: *nginx-site
