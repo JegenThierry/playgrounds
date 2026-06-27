@@ -74,9 +74,9 @@ services:
     volumes:
       - ./prettiest:/usr/share/nginx/html:ro
 
-  anne:
+  love:
     <<: *nginx-site
-    container_name: playgrounds-anne
+    container_name: playgrounds-love
     ports:
       - "${ANNE_PORT:-1241}:80"
     volumes:
