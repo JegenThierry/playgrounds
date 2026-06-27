@@ -1,0 +1,195 @@
+:root {
+  --bg-top: #fff2f8;
+  --bg-mid: #ffd9e9;
+  --bg-bot: #ece1ff;
+
+  --card: #fffaf4;
+  --ink: #6b2c3f;
+  --ink-soft: #a85878;
+  --rose: #ff7eaa;
+  --rose-deep: #d94d7e;
+  --rose-light: #ffc1d4;
+  --lilac: #d8b9ec;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html {
+  font-family: ui-rounded, "Hiragino Maru Gothic ProN", "Quicksand",
+    "Avenir Next Rounded", -apple-system, "Segoe UI", system-ui, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100dvh;
+  padding:
+    calc(var(--safe-top) + 2rem) 1rem calc(var(--safe-bottom) + 6rem);
+  overflow-x: clip;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse 90% 55% at 50% 0%, #fff5fa 0%, transparent 60%),
+    radial-gradient(ellipse 80% 50% at 100% 100%, #ece1ff 0%, transparent 60%),
+    radial-gradient(ellipse 80% 50% at 0% 80%, #ffd6e6 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg-top), var(--bg-mid) 55%, var(--bg-bot));
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(255, 122, 162, 0.35);
+  color: var(--ink);
+}
+
+.letter {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 38rem;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  background: linear-gradient(175deg, #fffdf7 0%, #fffaf4 30%, #fff5ef 100%);
+  border-radius: 2rem;
+  border: 1px solid rgba(244, 197, 176, 0.45);
+  box-shadow:
+    0 4px 24px -8px rgba(217, 77, 126, 0.18),
+    0 20px 48px -20px rgba(217, 77, 126, 0.3);
+}
+
+@supports (backdrop-filter: blur()) {
+  .letter {
+    background: linear-gradient(175deg,
+        rgba(255, 253, 247, 0.92) 0%,
+        rgba(255, 250, 244, 0.88) 30%,
+        rgba(255, 245, 239, 0.9) 100%);
+    backdrop-filter: blur(8px);
+  }
+}
+
+.letter-header {
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+
+.letter-eyebrow {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: lowercase;
+  color: var(--rose-deep);
+  opacity: 0.85;
+  margin-bottom: 0.25rem;
+}
+
+.letter-title {
+  font-family: "Snell Roundhand", "Apple Chancery", "Brush Script MT",
+    "Lucida Handwriting", cursive;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(3.4rem, 14vw, 5.2rem);
+  line-height: 1;
+  color: var(--rose-deep);
+  text-shadow: 0 2px 0 #fff, 0 4px 14px rgba(217, 77, 126, 0.25);
+}
+
+.divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg,
+      transparent,
+      var(--rose-light),
+      var(--lilac),
+      var(--rose-light),
+      transparent);
+  margin: 2.5rem 0;
+}
+
+.letter-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.letter-greeting {
+  font-family: "Snell Roundhand", "Apple Chancery", "Brush Script MT",
+    "Lucida Handwriting", cursive;
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--rose-deep);
+  margin-bottom: 1.25rem;
+}
+
+.letter-p {
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+.letter-p+.letter-p {
+  margin-top: 1.5rem;
+}
+
+.letter-signature {
+  text-align: right;
+  font-family: "Snell Roundhand", "Apple Chancery", "Brush Script MT",
+    "Lucida Handwriting", cursive;
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--rose-deep);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+  .letter {
+    padding: 2.25rem 1.5rem;
+    border-radius: 1.5rem;
+  }
+
+  .letter-p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .letter-greeting {
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .letter {
+    padding: 3.5rem 3rem;
+  }
+
+  .letter-p {
+    font-size: 1.18rem;
+  }
+
+  .letter-greeting {
+    font-size: 1.45rem;
+  }
+
+  .letter-signature {
+    font-size: 1.45rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
