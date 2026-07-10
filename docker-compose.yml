@@ -90,6 +90,14 @@ services:
     volumes:
       - ./justine:/usr/share/nginx/html:ro
 
+  liz:
+    <<: *nginx-site
+    container_name: playgrounds-liz
+    ports:
+      - "${LIZ_PORT:-1243}:80"
+    volumes:
+      - ./liz:/usr/share/nginx/html:ro
+
   stress-shredder:
     <<: *nginx-site
     container_name: playgrounds-stress-shredder

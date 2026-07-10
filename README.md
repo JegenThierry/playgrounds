@@ -18,7 +18,8 @@ A collection of small webpages. All sites are orchestrated from a single root `d
 | Prettiest 💌       | 1239         | A starry love letter for the prettiest girl in the world.  |
 | Memory Test 📞     | 1240         | A "phone memory test" — emails you the number she typed.   |
 | Adore Justine 💞   | 1242         | A flip-through card of reasons you adore Justine.          |
-| Love💞             | 1243         | A love letter to the person you love.                      |
+| Liz's Rewards 🎁   | 1243         | Coupon booklet rewarding Liz for acing her exam.           |
+| Love💞             | 1241         | A love letter to the person you love.                      |
 
 ## Getting Started
 
