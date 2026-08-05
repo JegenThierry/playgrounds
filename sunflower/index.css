@@ -16,31 +16,37 @@ html {
 }
 
 @keyframes sway {
+
   0%,
   100% {
     transform: rotate(-2deg);
   }
+
   50% {
     transform: rotate(2deg);
   }
 }
 
 @keyframes bloom-pulse {
+
   0%,
   100% {
     transform: translateX(-50%) scale(1);
   }
+
   50% {
     transform: translateX(-50%) scale(1.03);
   }
 }
 
 @keyframes glow-pulse {
+
   0%,
   100% {
     opacity: 0.6;
     transform: translateX(-50%) scale(1);
   }
+
   50% {
     opacity: 0.9;
     transform: translateX(-50%) scale(1.1);
@@ -48,12 +54,14 @@ html {
 }
 
 @keyframes sun-pulse {
+
   0%,
   100% {
     box-shadow:
       0 0 60px 20px var(--sun-glow),
       0 0 120px 40px rgba(255, 220, 100, 0.3);
   }
+
   50% {
     box-shadow:
       0 0 80px 30px var(--sun-glow),
@@ -65,6 +73,7 @@ html {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   to {
     transform: translate(-50%, -50%) rotate(360deg);
   }
@@ -76,21 +85,25 @@ html {
     left: -40px;
     transform: rotate(-5deg);
   }
+
   25% {
     top: 10%;
     left: 30%;
     transform: rotate(10deg);
   }
+
   50% {
     top: 40%;
     left: 60%;
     transform: rotate(-8deg);
   }
+
   75% {
     top: 70%;
     left: 30%;
     transform: rotate(5deg);
   }
+
   100% {
     top: 20%;
     left: -40px;
@@ -118,12 +131,10 @@ html {
   left: 0;
   width: 100%;
   height: 25%;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(120, 160, 50, 0.35) 40%,
-    rgba(80, 120, 30, 0.55) 100%
-  );
+  background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(120, 160, 50, 0.35) 40%,
+      rgba(80, 120, 30, 0.55) 100%);
   z-index: 1;
 }
 
@@ -142,11 +153,9 @@ html {
   width: 220px;
   height: 220px;
   transform: translateX(-50%);
-  background: radial-gradient(
-    circle,
-    rgba(255, 240, 150, 0.55) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(255, 240, 150, 0.55) 0%,
+      transparent 70%);
   filter: blur(15px);
   z-index: 0;
   animation: glow-pulse 4s infinite;
@@ -222,12 +231,10 @@ html {
   position: absolute;
   width: 28px;
   height: 80px;
-  background: linear-gradient(
-    to top,
-    var(--petal-dark) 0%,
-    var(--petal-color) 50%,
-    var(--petal-light) 100%
-  );
+  background: linear-gradient(to top,
+      var(--petal-dark) 0%,
+      var(--petal-color) 50%,
+      var(--petal-light) 100%);
   border-radius: 50% 50% 20% 20% / 60% 60% 10% 10%;
   transform-origin: 50% 100%;
   box-shadow: inset 0 -8px 12px rgba(0, 0, 0, 0.15),
@@ -240,36 +247,47 @@ html {
 .petal-ring .petal:nth-child(1) {
   transform: rotate(0deg);
 }
+
 .petal-ring .petal:nth-child(2) {
   transform: rotate(30deg);
 }
+
 .petal-ring .petal:nth-child(3) {
   transform: rotate(60deg);
 }
+
 .petal-ring .petal:nth-child(4) {
   transform: rotate(90deg);
 }
+
 .petal-ring .petal:nth-child(5) {
   transform: rotate(120deg);
 }
+
 .petal-ring .petal:nth-child(6) {
   transform: rotate(150deg);
 }
+
 .petal-ring .petal:nth-child(7) {
   transform: rotate(180deg);
 }
+
 .petal-ring .petal:nth-child(8) {
   transform: rotate(210deg);
 }
+
 .petal-ring .petal:nth-child(9) {
   transform: rotate(240deg);
 }
+
 .petal-ring .petal:nth-child(10) {
   transform: rotate(270deg);
 }
+
 .petal-ring .petal:nth-child(11) {
   transform: rotate(300deg);
 }
+
 .petal-ring .petal:nth-child(12) {
   transform: rotate(330deg);
 }
@@ -282,39 +300,51 @@ html {
   left: -12px;
   filter: brightness(1.05);
 }
+
 .petal-ring.front .petal:nth-child(1) {
   transform: rotate(15deg);
 }
+
 .petal-ring.front .petal:nth-child(2) {
   transform: rotate(45deg);
 }
+
 .petal-ring.front .petal:nth-child(3) {
   transform: rotate(75deg);
 }
+
 .petal-ring.front .petal:nth-child(4) {
   transform: rotate(105deg);
 }
+
 .petal-ring.front .petal:nth-child(5) {
   transform: rotate(135deg);
 }
+
 .petal-ring.front .petal:nth-child(6) {
   transform: rotate(165deg);
 }
+
 .petal-ring.front .petal:nth-child(7) {
   transform: rotate(195deg);
 }
+
 .petal-ring.front .petal:nth-child(8) {
   transform: rotate(225deg);
 }
+
 .petal-ring.front .petal:nth-child(9) {
   transform: rotate(255deg);
 }
+
 .petal-ring.front .petal:nth-child(10) {
   transform: rotate(285deg);
 }
+
 .petal-ring.front .petal:nth-child(11) {
   transform: rotate(315deg);
 }
+
 .petal-ring.front .petal:nth-child(12) {
   transform: rotate(345deg);
 }
@@ -328,12 +358,10 @@ html {
   height: 90px;
   margin: -45px 0 0 -45px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle at 35% 35%,
-    var(--center-mid) 0%,
-    var(--center-color) 45%,
-    var(--center-dark) 100%
-  );
+  background: radial-gradient(circle at 35% 35%,
+      var(--center-mid) 0%,
+      var(--center-color) 45%,
+      var(--center-dark) 100%);
   box-shadow:
     inset 0 0 18px rgba(0, 0, 0, 0.5),
     0 4px 8px rgba(0, 0, 0, 0.25);
@@ -365,11 +393,9 @@ html {
   width: 18px;
   height: 12px;
   border-radius: 50%;
-  background: repeating-linear-gradient(
-    90deg,
-    #2a2a2a 0 3px,
-    #f6d24a 3px 6px
-  );
+  background: repeating-linear-gradient(90deg,
+      #2a2a2a 0 3px,
+      #f6d24a 3px 6px);
   box-shadow:
     -2px 0 0 1px #2a2a2a,
     0 -4px 0 -2px rgba(255, 255, 255, 0.85),

@@ -12,20 +12,24 @@ html {
 }
 
 @keyframes sway {
+
   0%,
   100% {
     transform: rotate(-2deg);
   }
+
   50% {
     transform: rotate(2deg);
   }
 }
 
 @keyframes bloom-pulse {
+
   0%,
   100% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.02);
   }
@@ -37,12 +41,15 @@ html {
     opacity: 1;
     transform: rotate(0deg) translateX(0);
   }
+
   30% {
     transform: rotate(45deg) translateX(20px);
   }
+
   80% {
     opacity: 1;
   }
+
   100% {
     top: 250%;
     opacity: 0;
@@ -51,11 +58,13 @@ html {
 }
 
 @keyframes glow-pulse {
+
   0%,
   100% {
     opacity: 0.6;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.8;
     transform: scale(1.1);
@@ -77,11 +86,9 @@ html {
   width: 140px;
   height: 140px;
   transform: translateX(-50%);
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.4) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 70%);
   filter: blur(10px);
   z-index: 0;
   animation: glow-pulse 4s infinite;
