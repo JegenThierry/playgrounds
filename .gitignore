@@ -2,7 +2,3 @@
 .vscode
 .env
 node_modules
-
-# Claude
-CLAUDE.md
-.claude/

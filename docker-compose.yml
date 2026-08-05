@@ -18,14 +18,6 @@ x-nginx-site: &nginx-site
     start_period: 5s
 
 services:
-  christmas:
-    <<: *nginx-site
-    container_name: playgrounds-christmas
-    ports:
-      - "${CHRISTMAS_PORT:-1230}:80"
-    volumes:
-      - ./christmas:/usr/share/nginx/html:ro
-
   birthday:
     <<: *nginx-site
     container_name: playgrounds-birthday
@@ -42,14 +34,6 @@ services:
     volumes:
       - ./easter:/usr/share/nginx/html:ro
 
-  valentines-day:
-    <<: *nginx-site
-    container_name: playgrounds-valentines-day
-    ports:
-      - "${VALENTINES_DAY_PORT:-1233}:80"
-    volumes:
-      - ./valentines-day:/usr/share/nginx/html:ro
-
   flower:
     <<: *nginx-site
     container_name: playgrounds-flower
@@ -65,138 +49,6 @@ services:
       - "${SUNFLOWER_PORT:-1238}:80"
     volumes:
       - ./sunflower:/usr/share/nginx/html:ro
-
-  prettiest:
-    <<: *nginx-site
-    container_name: playgrounds-prettiest
-    ports:
-      - "${PRETTIEST_PORT:-1239}:80"
-    volumes:
-      - ./prettiest:/usr/share/nginx/html:ro
-
-  love:
-    <<: *nginx-site
-    container_name: playgrounds-love
-    ports:
-      - "${LOVE_PORT:-1241}:80"
-    volumes:
-      - ./love:/usr/share/nginx/html:ro
-
-  justine:
-    <<: *nginx-site
-    container_name: playgrounds-justine
-    ports:
-      - "${JUSTINE_PORT:-1242}:80"
-    volumes:
-      - ./justine:/usr/share/nginx/html:ro
-
-  liz:
-    <<: *nginx-site
-    container_name: playgrounds-liz
-    ports:
-      - "${LIZ_PORT:-1243}:80"
-    volumes:
-      - ./liz:/usr/share/nginx/html:ro
-
-  stress-shredder:
-    <<: *nginx-site
-    container_name: playgrounds-stress-shredder
-    ports:
-      - "${STRESS_SHREDDER_PORT:-1235}:80"
-    volumes:
-      - ./stress-shredder:/usr/share/nginx/html:ro
-
-  fuck:
-    <<: *nginx-site
-    container_name: playgrounds-fuck
-    ports:
-      - "${FUCK_PORT:-1236}:80"
-    volumes:
-      - ./fuck:/usr/share/nginx/html:ro
-
-  date-ui:
-    <<: *nginx-site
-    container_name: playgrounds-date-ui
-    ports:
-      - "${DATE_UI_PORT:-1237}:80"
-    volumes:
-      - ./date/ui:/usr/share/nginx/html:ro
-      - ./date/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    depends_on:
-      date-api:
-        condition: service_healthy
-
-  date-api:
-    build:
-      context: ./date/api
-    image: playgrounds/date-api:latest
-    container_name: playgrounds-date-api
-    restart: unless-stopped
-    read_only: true
-    tmpfs:
-      - /tmp
-    security_opt:
-      - no-new-privileges:true
-    environment:
-      NODE_ENV: production
-      PORT: "3001"
-      RESEND_API_KEY: ${RESEND_API_KEY:?RESEND_API_KEY is required (see .env.example)}
-      TO_EMAIL: ${TO_EMAIL:?TO_EMAIL is required (see .env.example)}
-      FROM_EMAIL: ${FROM_EMAIL:-Date Request <onboarding@resend.dev>}
-    expose:
-      - "3001"
-    healthcheck:
-      test:
-        - "CMD"
-        - "node"
-        - "-e"
-        - "require('net').createConnection({host:'127.0.0.1',port:3001}).on('connect',function(){this.end();process.exit(0)}).on('error',()=>process.exit(1))"
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
-
-  memory-test-ui:
-    <<: *nginx-site
-    container_name: playgrounds-memory-test-ui
-    ports:
-      - "${MEMORY_TEST_UI_PORT:-1240}:80"
-    volumes:
-      - ./memory-test/ui:/usr/share/nginx/html:ro
-      - ./memory-test/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    depends_on:
-      memory-test-api:
-        condition: service_healthy
-
-  memory-test-api:
-    build:
-      context: ./memory-test/api
-    image: playgrounds/memory-test-api:latest
-    container_name: playgrounds-memory-test-api
-    restart: unless-stopped
-    read_only: true
-    tmpfs:
-      - /tmp
-    security_opt:
-      - no-new-privileges:true
-    environment:
-      NODE_ENV: production
-      PORT: "3002"
-      RESEND_API_KEY: ${RESEND_API_KEY:?RESEND_API_KEY is required (see .env.example)}
-      TO_EMAIL: ${TO_EMAIL:?TO_EMAIL is required (see .env.example)}
-      FROM_EMAIL: ${FROM_EMAIL:-Memory Test <onboarding@resend.dev>}
-    expose:
-      - "3002"
-    healthcheck:
-      test:
-        - "CMD"
-        - "node"
-        - "-e"
-        - "require('net').createConnection({host:'127.0.0.1',port:3002}).on('connect',function(){this.end();process.exit(0)}).on('error',()=>process.exit(1))"
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
 
 networks:
   default:
