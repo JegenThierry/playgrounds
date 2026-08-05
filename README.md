@@ -4,12 +4,12 @@ A collection of small webpages. All sites are orchestrated from a single root `d
 
 ## The Collection
 
-| Project            | Default Port | Description                                                |
-| ------------------ | ------------ | ---------------------------------------------------------- |
-| Birthday 🎂        | 1231         | A personalized Birthday site.                              |
-| Easter 🐰          | 1232         | Easter website wishing you a happy easter.                 |
-| Flower 🌸          | 1234         | A flower for your loved ones.                              |
-| Sunflower 🌻       | 1238         | A little sunshine for someone who could use it.            |
+| Project            | Default Port | Description                                                | Preview URL                    |
+| ------------------ | ------------ | ---------------------------------------------------------- | ------------------------------ |
+| Birthday 🎂        | 1231         | A personalized Birthday site.                              | https://birthday.thierry.beer  |
+| Easter 🐰          | 1232         | Easter website wishing you a happy easter.                 | https://easter.thierry.beer    |
+| Flower 🌸          | 1234         | A flower for your loved ones.                              | https://flower.thierry.beer    |
+| Sunflower 🌻       | 1238         | A little sunshine for someone who could use it.            | https://sunflower.thierry.beer |
 
 ## Getting Started
 
