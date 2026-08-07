@@ -4,7 +4,7 @@ A collection of small webpages. All sites are orchestrated from a single root `d
 
 ## The Collection
 
-| Project            | Default Port | Description                                                | Preview URL                    |
+| Project            | Local Port   | Description                                                | Preview URL                    |
 | ------------------ | ------------ | ---------------------------------------------------------- | ------------------------------ |
 | Birthday 🎂        | 1231         | A personalized Birthday site.                              | https://birthday.thierry.beer  |
 | Easter 🐰          | 1232         | Easter website wishing you a happy easter.                 | https://easter.thierry.beer    |
@@ -44,9 +44,7 @@ Or just one site:
 
 ```bash
 docker compose down birthday
-```
 
+### Reverse Proxy
 
-## Reverse-proxy integration
-
-The websites are also available over a nginx-network. You may not need this depending on your setup.
+Traefik is used as a reverse Proxy see the setup under: [Server Config](https://github.com/JegenThierry/server-config)

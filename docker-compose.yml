@@ -1,9 +1,8 @@
 name: playgrounds
 
 x-nginx-site: &nginx-site
-  image: nginx:1.27-alpine
+  image: nginx:stable-alpine
   restart: unless-stopped
-  read_only: true
   tmpfs:
     - /var/cache/nginx
     - /var/run
@@ -16,41 +15,62 @@ x-nginx-site: &nginx-site
     timeout: 5s
     retries: 3
     start_period: 5s
+  networks:
+    - traefik-network
 
 services:
   birthday:
     <<: *nginx-site
     container_name: playgrounds-birthday
-    ports:
-      - "${BIRTHDAY_PORT:-1231}:80"
     volumes:
       - ./birthday:/usr/share/nginx/html:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-network"
+      - "traefik.http.routers.birthday.rule=Host(`birthday.thierry.beer`)"
+      - "traefik.http.routers.birthday.entrypoints=websecure"
+      - "traefik.http.routers.birthday.tls.certresolver=letsencrypt"
+      - "traefik.http.services.birthday.loadbalancer.server.port=80"
 
   easter:
     <<: *nginx-site
     container_name: playgrounds-easter
-    ports:
-      - "${EASTER_PORT:-1232}:80"
     volumes:
       - ./easter:/usr/share/nginx/html:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-network"
+      - "traefik.http.routers.easter.rule=Host(`easter.thierry.beer`)"
+      - "traefik.http.routers.easter.entrypoints=websecure"
+      - "traefik.http.routers.easter.tls.certresolver=letsencrypt"
+      - "traefik.http.services.easter.loadbalancer.server.port=80"
 
   flower:
     <<: *nginx-site
     container_name: playgrounds-flower
-    ports:
-      - "${FLOWER_PORT:-1234}:80"
     volumes:
       - ./flower:/usr/share/nginx/html:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-network"
+      - "traefik.http.routers.flower.rule=Host(`flower.thierry.beer`)"
+      - "traefik.http.routers.flower.entrypoints=websecure"
+      - "traefik.http.routers.flower.tls.certresolver=letsencrypt"
+      - "traefik.http.services.flower.loadbalancer.server.port=80"
 
   sunflower:
     <<: *nginx-site
     container_name: playgrounds-sunflower
-    ports:
-      - "${SUNFLOWER_PORT:-1238}:80"
     volumes:
       - ./sunflower:/usr/share/nginx/html:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-network"
+      - "traefik.http.routers.sunflower.rule=Host(`sunflower.thierry.beer`)"
+      - "traefik.http.routers.sunflower.entrypoints=websecure"
+      - "traefik.http.routers.sunflower.tls.certresolver=letsencrypt"
+      - "traefik.http.services.sunflower.loadbalancer.server.port=80"
 
 networks:
-  default:
-    name: nginx-network
+  traefik-network:
     external: true
