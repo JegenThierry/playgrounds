@@ -22,10 +22,35 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-network"
-      - "traefik.http.routers.playgrounds.rule=Host(`birthday.thierry.beer`) || Host(`easter.thierry.beer`) || Host(`flower.thierry.beer`) || Host(`sunflower.thierry.beer`)"
-      - "traefik.http.routers.playgrounds.entrypoints=websecure"
-      - "traefik.http.routers.playgrounds.tls.certresolver=letsencrypt"
       - "traefik.http.services.playgrounds.loadbalancer.server.port=80"
+
+      # 1. Birthday Router
+      - "traefik.http.routers.playgrounds-birthday.rule=Host(`birthday.thierry.beer`)"
+      - "traefik.http.routers.playgrounds-birthday.entrypoints=websecure"
+      - "traefik.http.routers.playgrounds-birthday.tls=true"
+      - "traefik.http.routers.playgrounds-birthday.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.playgrounds-birthday.service=playgrounds"
+
+      # 2. Easter Router
+      - "traefik.http.routers.playgrounds-easter.rule=Host(`easter.thierry.beer`)"
+      - "traefik.http.routers.playgrounds-easter.entrypoints=websecure"
+      - "traefik.http.routers.playgrounds-easter.tls=true"
+      - "traefik.http.routers.playgrounds-easter.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.playgrounds-easter.service=playgrounds"
+
+      # 3. Flower Router
+      - "traefik.http.routers.playgrounds-flower.rule=Host(`flower.thierry.beer`)"
+      - "traefik.http.routers.playgrounds-flower.entrypoints=websecure"
+      - "traefik.http.routers.playgrounds-flower.tls=true"
+      - "traefik.http.routers.playgrounds-flower.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.playgrounds-flower.service=playgrounds"
+
+      # 4. Sunflower Router
+      - "traefik.http.routers.playgrounds-sunflower.rule=Host(`sunflower.thierry.beer`)"
+      - "traefik.http.routers.playgrounds-sunflower.entrypoints=websecure"
+      - "traefik.http.routers.playgrounds-sunflower.tls=true"
+      - "traefik.http.routers.playgrounds-sunflower.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.playgrounds-sunflower.service=playgrounds"
 
 networks:
   traefik-network:
