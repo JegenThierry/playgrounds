@@ -1,0 +1,32 @@
+name: playgrounds
+
+services:
+  playgrounds:
+    image: ghcr.io/jegenthierry/playgrounds:latest
+    container_name: playgrounds
+    restart: unless-stopped
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    networks:
+      - traefik-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-network"
+      - "traefik.http.routers.playgrounds.rule=Host(`birthday.thierry.beer`) || Host(`easter.thierry.beer`) || Host(`flower.thierry.beer`) || Host(`sunflower.thierry.beer`)"
+      - "traefik.http.routers.playgrounds.entrypoints=websecure"
+      - "traefik.http.routers.playgrounds.tls.certresolver=letsencrypt"
+      - "traefik.http.services.playgrounds.loadbalancer.server.port=80"
+
+networks:
+  traefik-network:
+    external: true
