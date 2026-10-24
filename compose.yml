@@ -11,12 +11,6 @@ services:
       - /tmp
     security_opt:
       - no-new-privileges:true
-    healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost/"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
     networks:
       - traefik-network
     labels:
